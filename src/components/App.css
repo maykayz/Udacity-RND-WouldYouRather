@@ -1,0 +1,88 @@
+body{
+  background: #f8f8f8;
+}
+
+.App {
+  text-align: center;
+}
+
+.App-logo {
+  height: 40vmin;
+  pointer-events: none;
+}
+
+.logo{
+  left: 0;
+  right: 0;
+  width: 300px;
+}
+
+.bg-yellow{
+  background: #ffc107;
+}
+.btn-primary{
+  background: #ffc107;
+  padding:6px 40px;
+  border-radius: 0px;
+  border:none;
+  color:#1a1a1a;
+}
+
+.nav .nav-item a{
+  color:#5e5e5e;
+  text-decoration: none;
+}
+.nav .nav-item a.active,.nav .nav-item a:hover{
+  color:#1a1a1a;
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .App-logo {
+    animation: App-logo-spin infinite 20s linear;
+  }
+}
+
+.App-header {
+  background-color: #282c34;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  font-size: calc(10px + 2vmin);
+  color: white;
+}
+
+.App-link {
+  color: #61dafb;
+}
+
+@keyframes App-logo-spin {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+
+/* PollItem */
+.poll-item{
+  background:#fafafa;
+}
+.user-image{
+  width:100px;
+  height:100px;
+  object-fit: contain;
+  object-position: center;
+}
+
+/* Card */
+.poll-item{
+  border:1px solid #ffc107;
+}
+.card,.card-header{
+  border:none;
+  /* background: #ffc107; */
+}
