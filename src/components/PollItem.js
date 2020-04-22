@@ -1,46 +1,35 @@
 import React, {Component} from 'react'
-import {Form} from 'react-bootstrap'
+import { connect } from 'react-redux'
+import {
+  useParams,
+  Link,
+  Router
+} from "react-router-dom";
 
-class PollComponent extends Component {
+class PollItem extends Component {
     state = {
-        selectedOption: ''
     }
     render() {
-        const {question, user} = this.props
+      const {question,user,answered} = this.props
+      const path1 = '/poll/'+question.id
+      const path2 = '/poll/answer/'+question.id
         return (
-            <div className="card my-4 poll-item">
+            <div className="card my-4 poll-item" key={question.id}>
                 <h6 className="card-header">{question.author}
                     asks:</h6>
                 <div className="card-body">
                     <div className="row">
                         <div className="col-3 text-center">
-                            <img className="user-image" src={user.avatarURL} alt="user"/>
+                            <img className="user-image" src={user ? user.avatarURL : ''} alt="user"/>
                         </div>
                         <div className="col-9">
                             <h6>Would You Rather...?</h6>
-                            <Form className="py-3">
-                                <div key="selectedOption" className="mb-3">
-                                    <Form.Check
-                                        type="radio"
-                                        id={'groupOptions'+question.id+"1"}
-                                        name={'groupOptions'+question.id}
-                                        className="my-2"
-                                        label={question.optionOne.text}
-                                        onChange={e => {
-                    											this.setState({selectedOption: 1})
-                    										}}/>
-                                    <Form.Check
-                                        type="radio"
-                                        id={'groupOptions'+question.id+2}
-                                        name={'groupOptions'+question.id}
-                                        className="my-2"
-                                        label={question.optionTwo.text}
-                                        onChange={e => {
-                                        this.setState({selectedOption: 2})
-                                    }}/>
-                                </div>
-                            </Form>
-                            <button className="btn btn-primary">Submit</button>
+                            <p>{question.optionOne.text.substring(0,10)}...</p>
+                            {
+                              answered === 'unanswered'
+                              ? <Link className="btn btn-primary" to={path1}>Submit</Link>
+                              : <Link className="btn btn-primary" to={path2}>View Answer</Link>
+                            }
                         </div>
                     </div>
                 </div>
@@ -48,5 +37,10 @@ class PollComponent extends Component {
         )
     }
 }
-
-export default PollComponent
+function mapStateToProps ({ authedUser,questions },props) {
+  return {
+		authedUser,
+    questions
+  }
+}
+export default connect(mapStateToProps)(PollItem)

@@ -4,6 +4,8 @@ import LoadingBar from 'react-redux-loading'
 
 import Home from './Home'
 import NewPoll from './NewPoll'
+import ViewPoll from './ViewPoll'
+import PollAnswer from './PollAnswer'
 import LeaderBoard from './LeaderBoard'
 import Navbar from './Navbar'
 
@@ -30,8 +32,12 @@ class App extends Component{
                 {this.props.loading === true
                   ? null
                   : <div>
-                      <Home />
-                    </div>
+                      <Route path='/' exact component={Home} />
+                      <Route path='/poll/:id' exact component={ViewPoll} />
+                      <Route path='/poll/answer/:id' exact component={PollAnswer} />
+                      <Route path='/newpoll' component={NewPoll} />
+                      <Route path='/leaderboard' component={LeaderBoard} />
+                    </div>}
                   }
               </div>
           </Router>

@@ -3,7 +3,6 @@ import ReactDOM from 'react-dom';
 import './index.css';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import App from './components/App';
-import { BrowserRouter as Router, Route } from 'react-router-dom'
 import { createStore } from 'redux'
 import { Provider } from 'react-redux'
 import reducer from './reducers'
@@ -17,4 +16,3 @@ ReactDOM.render(
   </Provider>,
   document.getElementById('root')
 );
-

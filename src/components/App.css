@@ -86,3 +86,36 @@ body{
   border:none;
   /* background: #ffc107; */
 }
+
+/* LeaderBoard */
+.score{
+  width:50px;
+  height:50px;
+  margin:20px auto;
+  border-radius:50px;
+  background:#ffab00;
+  font-weigth:700;
+  font-size:24px;
+  color:white;
+  display:flex;
+  flex-flow:row;
+  align-items: center;
+  justify-content: center;
+}
+.prize-tag{
+  position: absolute;
+top: 0;
+left: 0;
+padding: 4px 10px;
+}
+.gold{
+  background: gold;
+}
+.silver{
+  background:silver;
+  color:white;
+}
+.bronze{
+  background:#dbb256;
+  color:white;
+}

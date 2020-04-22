@@ -1,18 +1,18 @@
 import React, {Component} from 'react'
-import { connect } from 'react-redux'
 
 import PollItem from './PollItem'
 
-class PollComponent extends Component {
+class PollList extends Component {
 
 	render(){
-    const questions = Object.values(this.props.questions).sort((a,b)=> b.timestamp > a.timestamp)
+    const {questions,authedUser,answered} = this.props
     const users = Object.values(this.props.users)
+		console.log(questions)
 		return (
 				<div className="py-5 mx-5">
             {
-                questions.map(question => (
-                  <PollItem question={question} user={users.filter((u) => u.id === question.author)[0]} key={question.id} />
+                questions.map((question,index) => (
+                  <PollItem question={question} authedUser={authedUser} answered={answered} user={users.filter((u) => u.id === question.author)[0]} key={index}/>
                 ))
             }
 				</div>
@@ -20,11 +20,4 @@ class PollComponent extends Component {
 	}
 }
 
-function mapStateToProps ({ questions,users,authedUser }) {
-  return {
-    questions,
-    users,
-		authedUser
-  }
-}
-export default connect(mapStateToProps)(PollComponent)
+export default PollList
