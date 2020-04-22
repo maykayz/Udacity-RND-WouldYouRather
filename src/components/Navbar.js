@@ -12,7 +12,6 @@ class Navbar extends Component  {
 
   render(){
     const user = this.props.authedUser
-    console.log(user)
     return (
       <div className="d-flex py-3 flex-row justify-content-between bg-yellow navbar align-items-center position-relative">
         <Nav className="pl-5" defaultActiveKey="/" as="ul">
