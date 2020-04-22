@@ -27,7 +27,22 @@ body{
   border:none;
   color:#1a1a1a;
 }
-
+.nav-tabs {
+  width:100%;
+  border:none;
+}
+.nav-tabs .nav-item{
+    width:25%;
+    text-align: center;
+}
+.nav-tabs .nav-item:hover{
+  border:none;
+  border-bottom:2px solid #ffc107;
+}
+.nav-tabs .nav-item.show .nav-link, .nav-tabs .nav-link.active{
+  border:none;
+  border-bottom:2px solid #ffc107;
+}
 .nav .nav-item a{
   color:#5e5e5e;
   text-decoration: none;
@@ -118,4 +133,13 @@ padding: 4px 10px;
 .bronze{
   background:#dbb256;
   color:white;
+}
+.vote-card{
+  border:1px solid #f2f2f2;
+}
+.yourvote-item{
+  padding: 3px 10px;
+  background: #ffc000;
+  width: fit-content;
+  margin-left: auto;
 }

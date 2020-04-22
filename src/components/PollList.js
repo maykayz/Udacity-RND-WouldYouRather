@@ -7,7 +7,6 @@ class PollList extends Component {
 	render(){
     const {questions,authedUser,answered} = this.props
     const users = Object.values(this.props.users)
-		console.log(questions)
 		return (
 				<div className="py-5 mx-5">
             {

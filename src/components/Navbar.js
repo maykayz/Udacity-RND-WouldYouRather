@@ -1,11 +1,18 @@
 import React, {Component} from 'react'
 import Nav from 'react-bootstrap/Nav'
 import { NavLink } from 'react-router-dom'
-
+import { connect } from 'react-redux'
+import {setAuthedUser} from '../actions/authedUser'
 class Navbar extends Component  {
+  logout = (e) => {
+    e.preventDefault()
+    const { dispatch } = this.props
+    dispatch(setAuthedUser(null))
+  }
 
   render(){
-    const {user} = this.props
+    const user = this.props.authedUser
+    console.log(user)
     return (
       <div className="d-flex py-3 flex-row justify-content-between bg-yellow navbar align-items-center position-relative">
         <Nav className="pl-5" defaultActiveKey="/" as="ul">
@@ -26,16 +33,16 @@ class Navbar extends Component  {
             </Nav.Item>
         </Nav>
         <h5 className="text-center position-absolute mx-auto logo">Would You Rather ... ?</h5>
-        <Nav className="pr-5" defaultActiveKey="/home" as="ul">
+        <Nav className="pr-5" as="ul">
             <Nav.Item as="li">
-                <NavLink to='/user' exact className="px-4">
+                <NavLink to='/' exact className="px-4">
                   {user.name}
                 </NavLink>
             </Nav.Item>
             <Nav.Item as="li">
-                <NavLink to='/logout' exact className="px-4">
+                <a href="#" onClick={e => this.logout(e)} className="px-4">
                   Logout
-                </NavLink>
+                </a>
             </Nav.Item>
         </Nav>
       </div>
@@ -43,4 +50,11 @@ class Navbar extends Component  {
   }
 }
 
-export default Navbar
+function mapStateToProps () {
+  // console.log(props)
+  return {
+    // user: props.authedUser
+  }
+}
+
+export default connect(mapStateToProps)(Navbar)

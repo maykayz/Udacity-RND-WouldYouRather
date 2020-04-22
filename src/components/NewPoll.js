@@ -11,9 +11,6 @@ class NewPoll extends Component {
 
 	saveQuestion = (e) => {
 		e.preventDefault()
-		console.log(this.state.optionOneText)
-		console.log(this.state.optionTwoText)
-		console.log(this.props.author)
 		const { dispatch } = this.props
     dispatch(handleAddQuestion(this.state.optionOneText,this.state.optionTwoText))
 		.then(() => {

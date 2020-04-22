@@ -3,12 +3,17 @@ import { connect } from 'react-redux'
 import { Tabs, Tab } from 'react-bootstrap'
 
 import PollList from './PollList'
+import { handleInitialData } from '../actions/shared'
 
 class Home extends Component {
+	componentDidMount() {
+		 this.props.dispatch(handleInitialData())
+  }
 	render(){
 		const {answeredQuestions,unansweredQuestions,users,authedUser}= this.props
 		const userArray = Object.values(users).filter(u => u.id === authedUser)
 		const user = userArray.length ? userArray[0] : {}
+		console.log(authedUser)
 
 		return (
 			<div className="container py-5">
@@ -31,11 +36,10 @@ class Home extends Component {
 	}
 }
 
-function mapStateToProps ({ questions,users,authedUser }) {
+function mapStateToProps ({ questions,users,authedUser },props) {
 	const userAnswers = Object.keys(users[authedUser].answers);
   const unansweredQuestions = Object.values(questions).filter(question => !userAnswers.includes(question.id)).sort((a, b) => b.timestamp - a.timestamp);
   const answeredQuestions = Object.values(questions).filter(question => userAnswers.includes(question.id)).sort((a, b) => b.timestamp - a.timestamp);
-
   return {
     answeredQuestions,
 		unansweredQuestions,

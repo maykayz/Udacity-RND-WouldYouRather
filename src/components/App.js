@@ -1,7 +1,10 @@
-import React, {Component} from 'react';
-import { BrowserRouter as Router, Route } from 'react-router-dom'
+import React, {Component,Fragment} from 'react';
+import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
 import LoadingBar from 'react-redux-loading'
+import { connect } from 'react-redux'
 
+import { handleInitialData } from '../actions/shared'
+import LogIn from './LogIn'
 import Home from './Home'
 import NewPoll from './NewPoll'
 import ViewPoll from './ViewPoll'
@@ -9,50 +12,47 @@ import PollAnswer from './PollAnswer'
 import LeaderBoard from './LeaderBoard'
 import Navbar from './Navbar'
 
-import { connect } from 'react-redux'
-import { handleInitialData } from '../actions/shared'
-
 import './App.css';
 
-
-
 class App extends Component{
-    componentDidMount() {
-      this.props.dispatch(handleInitialData())
-    }
+  componentDidMount() {
+     this.props.handleInitialData();
+  }
     render(){
-      const {users,authedUser} = this.props
-      const userArray = Object.values(users).filter(u => u.id === authedUser)
-      const user = userArray.length ? userArray[0] : {}
+      const {authedUser} = this.props
         return (
           <Router>
-              <LoadingBar />
-              <div>
-              <Navbar user={user}></Navbar>
-                {this.props.loading === true
-                  ? null
-                  : <div>
-                      <Route path='/' exact component={Home} />
-                      <Route path='/poll/:id' exact component={ViewPoll} />
-                      <Route path='/poll/answer/:id' exact component={PollAnswer} />
-                      <Route path='/newpoll' component={NewPoll} />
-                      <Route path='/leaderboard' component={LeaderBoard} />
-                    </div>}
-                  }
-              </div>
+            <div className="App">
+              {authedUser === null ? (
+                <Route
+                  render={() => (
+                      <LogIn />
+                  )}
+                />
+              ) : (
+                <Fragment>
+                  <Navbar authedUser={authedUser}></Navbar>
+                    <Switch>
+                    <Route path='/' exact component={Home} />
+                    <Route path='/poll/:id' exact component={ViewPoll} />
+                    <Route path='/poll/answer/:id' exact component={PollAnswer} />
+                    <Route path='/newpoll' component={NewPoll} />
+                    <Route path='/leaderboard' component={LeaderBoard} />
+                    </Switch>
+                </Fragment>
+              )}
+            </div>
           </Router>
         );
     }
 }
 
 
-function mapStateToProps ({ authedUser,questions,users },props) {
+function mapStateToProps ({users,authedUser},props) {
   return {
-    loading: authedUser === null,
-    questions,
     users,
     authedUser
   }
 }
 
-export default connect(mapStateToProps)(App)
+export default connect(mapStateToProps,{handleInitialData})(App)
