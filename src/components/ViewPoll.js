@@ -2,7 +2,7 @@ import React, {Component} from 'react'
 import {Form} from 'react-bootstrap'
 import { connect } from 'react-redux'
 import {handleAnswerQuestion} from '../actions/questions'
-
+import { Redirect } from 'react-router-dom';
 
 class ViewPoll extends Component {
     state = {
@@ -14,10 +14,13 @@ class ViewPoll extends Component {
      const {dispatch,question,authedUser} = this.props
      const qid = question.id
      dispatch(handleAnswerQuestion(qid,authedUser,this.state.selectedOption))
-     this.props.history.push("/poll/answer/"+qid);
+     this.props.history.push("/questions/"+qid);
    }
     render() {
-        const {user,question} = this.props
+        const {user,question,bad_path} = this.props
+        if (bad_path) {
+          return <Redirect to="/questions/bad_id" />;
+        }
         return (
             <div className="container">
                 <div className="row d-flex flex-row justify-content-center">
@@ -80,12 +83,19 @@ class ViewPoll extends Component {
 }
 function mapStateToProps ({ authedUser,questions,users },props) {
     const id = props.match.params.id
+    var bad_path = false
     const question = Object.values(questions).filter(q => q.id === id)[0]
-    const user = Object.values(users).filter(u => u.id === question.author)[0]
+    var user = ''
+    if(question){
+      user = Object.values(users).filter(u => u.id === question.author)[0]
+    }else{
+      bad_path = true
+    }
     return {
   		user,
       question,
-      authedUser
+      authedUser,
+      bad_path
     }
 }
 export default connect(mapStateToProps)(ViewPoll)

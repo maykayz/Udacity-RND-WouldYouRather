@@ -13,7 +13,6 @@ class Home extends Component {
 		const {answeredQuestions,unansweredQuestions,users,authedUser}= this.props
 		const userArray = Object.values(users).filter(u => u.id === authedUser)
 		const user = userArray.length ? userArray[0] : {}
-		console.log(authedUser)
 
 		return (
 			<div className="container py-5">

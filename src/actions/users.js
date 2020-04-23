@@ -1,5 +1,4 @@
-export const RECEIVE_USERS = 'RECEIVE_USERS'
-export const SAVE_ANSWER_USER = 'SAVE_ANSWER_USER'
+import {RECEIVE_USERS,SAVE_ANSWER_USER} from './types'
 
   export function receiveUsers(users) {
 	  return {

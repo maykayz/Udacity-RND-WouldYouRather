@@ -1,9 +1,7 @@
 import React, {Component} from 'react'
 import { connect } from 'react-redux'
 import {
-  useParams,
   Link,
-  Router
 } from "react-router-dom";
 
 class PollItem extends Component {
@@ -11,8 +9,8 @@ class PollItem extends Component {
     }
     render() {
       const {question,user,answered} = this.props
-      const path1 = '/poll/'+question.id
-      const path2 = '/poll/answer/'+question.id
+      const path1 = '/questions/answer/'+question.id
+      const path2 = '/questions/'+question.id
         return (
             <div className="card my-4 poll-item" key={question.id}>
                 <h6 className="card-header">{question.author}

@@ -23,6 +23,11 @@ body{
   border:none;
   color:#1a1a1a;
 }
+.btn-link{
+  background:transparent;
+  border:none;
+  color:#1a1a1a;
+}
 .nav-tabs {
   width:100%;
   border:none;

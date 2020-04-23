@@ -13,7 +13,6 @@ class LogIn extends Component {
 		localStorage.setItem('authedUser',username)
 		const { dispatch } = this.props
     dispatch(setAuthedUser(username))
-
 	}
 	render(){
 		const {users} = this.props

@@ -1,6 +1,5 @@
 import React, {Component,Fragment} from 'react';
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
-import LoadingBar from 'react-redux-loading'
 import { connect } from 'react-redux'
 
 import { handleInitialData } from '../actions/shared'
@@ -11,6 +10,7 @@ import ViewPoll from './ViewPoll'
 import PollAnswer from './PollAnswer'
 import LeaderBoard from './LeaderBoard'
 import Navbar from './Navbar'
+import NotFound from './NotFound'
 
 import './App.css';
 
@@ -24,23 +24,26 @@ class App extends Component{
           <Router>
             <div className="App">
               {authedUser === null ? (
-                <Route
-                  render={() => (
-                      <LogIn />
-                  )}
-                />
+                  <Route
+                    render={() => (
+                        <LogIn />
+                    )}
+                  />
               ) : (
                 <Fragment>
-                  <Navbar authedUser={authedUser}></Navbar>
+                    <Navbar></Navbar>
                     <Switch>
                     <Route path='/' exact component={Home} />
-                    <Route path='/poll/:id' exact component={ViewPoll} />
-                    <Route path='/poll/answer/:id' exact component={PollAnswer} />
-                    <Route path='/newpoll' component={NewPoll} />
-                    <Route path='/leaderboard' component={LeaderBoard} />
+                    <Route path='/questions/answer/:id' exact component={ViewPoll} />
+                    <Route path='/questions/bad_id' exact component={NotFound} />
+                    <Route path='/questions/:id' exact component={PollAnswer} />
+                    <Route path='/add' exact component={NewPoll} />
+                    <Route path='/leaderboard' exact component={LeaderBoard} />
+                    <Route component={NotFound} />
                     </Switch>
                 </Fragment>
               )}
+
             </div>
           </Router>
         );

@@ -12,13 +12,13 @@ class LeaderBoard extends Component {
 						<div className="col-8 bg-white p-3">
 						{
 								users.map((user,index) => (
-									<div className="position-relative">
+									<div className="position-relative" key={index}>
 											<UserItem user={user}/>
 
 												{index === 0
-													? <div class="prize-tag gold">1st</div>
-													: index === 1 ? <div class="prize-tag silver">2nd</div>
-													: <div class="prize-tag bronze">3rd</div>
+													? <div className="prize-tag gold">1st</div>
+													: index === 1 ? <div className="prize-tag silver">2nd</div>
+													: <div className="prize-tag bronze">3rd</div>
 												}
 
 									</div>

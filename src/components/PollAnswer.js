@@ -1,13 +1,16 @@
 import React, {Component} from 'react'
 import {ProgressBar} from 'react-bootstrap'
 import { connect } from 'react-redux'
-
+import { Redirect } from 'react-router-dom';
 
 class PollAnswer extends Component {
     state = {
     }
     render() {
-        const {user,question,authedUser} = this.props
+        const {user,question,authedUser,bad_path} = this.props
+        if (bad_path) {
+          return <Redirect to="/questions/bad_id" />;
+        }
         const optionOneVote = question.optionOne ? question.optionOne.votes.length : 0
         const optionTwoVote = question.optionTwo ? question.optionTwo.votes.length : 0
         const totalVote = optionOneVote + optionTwoVote
@@ -65,13 +68,20 @@ class PollAnswer extends Component {
 }
 function mapStateToProps ({ authedUser,questions,users },props) {
     const id = props.match.params.id
+    var bad_path = false
 
     const question = Object.values(questions).filter(q => q.id === id)[0]
-    const user = Object.values(users).filter(u => u.id === question.author)[0]
+    var user = ''
+    if(question){
+      user = Object.values(users).filter(u => u.id === question.author)[0]
+    }else{
+      bad_path = true
+    }
     return {
   		user,
       question,
-      authedUser
+      authedUser,
+      bad_path
     }
 }
 export default connect(mapStateToProps)(PollAnswer)
